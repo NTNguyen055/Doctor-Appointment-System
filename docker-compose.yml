@@ -2,12 +2,13 @@ version: '3.8'
 
 services:
   web:
-    build: .
+    # Dockerfile nằm trong thư mục con docappsystem
+    build: ./docappsystem
     container_name: django_web
     restart: always
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./docappsystem:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -24,8 +25,7 @@ services:
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     volumes:
       - db_data:/var/lib/mysql
-      # Đảm bảo file .sql nằm cùng cấp với docker-compose.yml
-      - ./docaspythondb.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./SQLFile/docaspythondb.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
 
