@@ -52,7 +52,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'dasapp.custom_context_processors.logo_context_processor', # Kiểm tra xem bạn có file này không, nếu lỗi thì comment lại
+                # 'dasapp.custom_context_processors.logo_context_processor', # Kiểm tra xem bạn có file này không, nếu lỗi thì comment lại
             ],
         },
     },

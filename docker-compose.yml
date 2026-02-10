@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   web:
-    # Dockerfile nằm trong thư mục con docappsystem
     build: ./docappsystem
     container_name: django_web
     restart: always
