@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 10, 2026 lúc 04:06 PM
--- Phiên bản máy phục vụ: 10.4.32-MariaDB
--- Phiên bản PHP: 8.0.30
+-- Máy chủ: db
+-- Thời gian đã tạo: Th2 10, 2026 lúc 07:38 PM
+-- Phiên bản máy phục vụ: 8.0.45
+-- Phiên bản PHP: 8.3.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `auth_group` (
-  `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -39,9 +39,9 @@ CREATE TABLE `auth_group` (
 --
 
 CREATE TABLE `auth_group_permissions` (
-  `id` bigint(20) NOT NULL,
-  `group_id` int(11) NOT NULL,
-  `permission_id` int(11) NOT NULL
+  `id` bigint NOT NULL,
+  `group_id` int NOT NULL,
+  `permission_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -51,10 +51,10 @@ CREATE TABLE `auth_group_permissions` (
 --
 
 CREATE TABLE `auth_permission` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `content_type_id` int(11) NOT NULL,
-  `codename` varchar(100) NOT NULL
+  `id` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `content_type_id` int NOT NULL,
+  `codename` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -110,21 +110,21 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 --
 
 CREATE TABLE `dasapp_appointment` (
-  `id` bigint(20) NOT NULL,
-  `appointmentnumber` int(11) NOT NULL,
-  `fullname` varchar(250) NOT NULL,
-  `mobilenumber` varchar(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `date_of_appointment` varchar(250) NOT NULL,
-  `time_of_appointment` varchar(250) NOT NULL,
-  `additional_msg` longtext NOT NULL,
+  `id` bigint NOT NULL,
+  `appointmentnumber` int NOT NULL,
+  `fullname` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `mobilenumber` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `date_of_appointment` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `time_of_appointment` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `additional_msg` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `doctor_id_id` bigint(20) NOT NULL,
-  `prescription` longtext NOT NULL,
-  `remark` varchar(250) NOT NULL,
-  `status` varchar(200) NOT NULL,
-  `recommendedtest` longtext NOT NULL
+  `doctor_id_id` bigint NOT NULL,
+  `prescription` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `remark` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `recommendedtest` longtext COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -141,19 +141,19 @@ INSERT INTO `dasapp_appointment` (`id`, `appointmentnumber`, `fullname`, `mobile
 --
 
 CREATE TABLE `dasapp_customuser` (
-  `id` bigint(20) NOT NULL,
-  `password` varchar(128) NOT NULL,
+  `id` bigint NOT NULL,
+  `password` varchar(128) COLLATE utf8mb4_general_ci NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `username` varchar(150) NOT NULL,
-  `first_name` varchar(150) NOT NULL,
-  `last_name` varchar(150) NOT NULL,
-  `email` varchar(254) NOT NULL,
+  `username` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `first_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `last_name` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(254) COLLATE utf8mb4_general_ci NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL,
-  `user_type` varchar(50) NOT NULL,
-  `profile_pic` varchar(100) NOT NULL
+  `user_type` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `profile_pic` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -168,9 +168,9 @@ INSERT INTO `dasapp_customuser` (`id`, `password`, `last_login`, `is_superuser`,
 (6, 'pbkdf2_sha256$720000$JMn0H0NZSJiNWzEQmf9vAW$z6QsiiOr2tAxnVZYIedP7I7ALpEBeiSM/i12rRHomfo=', NULL, 0, 'renu123', 'Renu', 'Gupta', 'renu@gmail.com', 0, 1, '2024-02-26 06:32:23.336261', '2', 'media/profile_pic/s5.jpg'),
 (7, 'pbkdf2_sha256$390000$lk73AkyXIo8bN1r6jMMMPk$xnGk80FZsLzTQ0oIzubBJdklEYqfW9X9vVf3jc2LVus=', '2024-03-06 16:56:50.443286', 0, 'drak30', 'Anuj', 'Kumar', 'ak@gmail.com', 0, 1, '2024-03-06 16:56:05.551943', '2', 'media/profile_pic/travel-agent.png'),
 (8, 'pbkdf2_sha256$390000$Xk8MrbR9cPUwgjKRtfNsGI$4vkFOxqiIGbDE5HI/a62CSsEtfIf6DOGz6skblACaoI=', '2024-03-07 17:30:43.935138', 0, 'johndeo12', 'John', 'Doe', 'johndoe12@gmail.com', 0, 1, '2024-03-06 17:22:41.071763', '2', 'media/profile_pic/doctor.png'),
-(9, 'pbkdf2_sha256$600000$7euUL0I5zRJowN7R90OskX$2czpLx6BxRGOr3CoS4N1um3MA5o/uqIt4YMMxUUIOzs=', '2026-02-10 15:05:12.098079', 0, 'ntnguyen2034', 'NGUYEN TRUNG', 'NGUYEN', 'nguyenkun555@gmail.com', 0, 1, '2026-02-10 14:16:20.490778', '2', 'media/profile_pic/d9dcc2db-c5bd-44a5-aa3d-9c1a4fa6d479.jpg'),
+(9, 'pbkdf2_sha256$600000$7euUL0I5zRJowN7R90OskX$2czpLx6BxRGOr3CoS4N1um3MA5o/uqIt4YMMxUUIOzs=', '2026-02-11 02:36:57.733538', 0, 'ntnguyen2034', 'NGUYEN TRUNG', ' NGUYEN', 'nguyenkun555@gmail.com', 0, 1, '2026-02-10 14:16:20.490778', '2', 'media/profile_pic/d9dcc2db-c5bd-44a5-aa3d-9c1a4fa6d479.jpg'),
 (10, 'pbkdf2_sha256$600000$eSo8O4tOBqQTtAX3zOljyS$fUr4eLNp7i3SBVUUixESVdJXzlXNm1LpLyaVTAP4myk=', '2026-02-10 14:43:01.871099', 1, 'admin', 'NGUYEN TRUNG', 'NGUYEN', 'admin123@gmail.com', 1, 1, '2026-02-10 14:21:39.323721', '1', 'media/profile_pic/d9dcc2db-c5bd-44a5-aa3d-9c1a4fa6d479_dtruz27.jpg'),
-(11, 'pbkdf2_sha256$600000$5qT4gxxeMvGxmyFcqSkWYQ$TtcsBRscQRajfMC82HL/kaqfFHt4Ank6a8hqQ7RH3po=', NULL, 0, 'dinh123', 'NGUYEN TRUNG', 'DINH', 'dinh123@gmail.com', 0, 1, '2026-02-10 14:48:27.415817', '2', 'media/profile_pic/0e111958-42e7-4a3f-b395-ae8b03c7559a.jpg');
+(11, 'pbkdf2_sha256$600000$5qT4gxxeMvGxmyFcqSkWYQ$TtcsBRscQRajfMC82HL/kaqfFHt4Ank6a8hqQ7RH3po=', '2026-02-11 02:37:30.382719', 0, 'dinh123', 'NGUYEN TRUNG', ' DINH', 'dinh123@gmail.com', 0, 1, '2026-02-10 14:48:27.415817', '2', 'media/profile_pic/unnamed.jpg');
 
 -- --------------------------------------------------------
 
@@ -179,9 +179,9 @@ INSERT INTO `dasapp_customuser` (`id`, `password`, `last_login`, `is_superuser`,
 --
 
 CREATE TABLE `dasapp_customuser_groups` (
-  `id` bigint(20) NOT NULL,
-  `customuser_id` bigint(20) NOT NULL,
-  `group_id` int(11) NOT NULL
+  `id` bigint NOT NULL,
+  `customuser_id` bigint NOT NULL,
+  `group_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -191,9 +191,9 @@ CREATE TABLE `dasapp_customuser_groups` (
 --
 
 CREATE TABLE `dasapp_customuser_user_permissions` (
-  `id` bigint(20) NOT NULL,
-  `customuser_id` bigint(20) NOT NULL,
-  `permission_id` int(11) NOT NULL
+  `id` bigint NOT NULL,
+  `customuser_id` bigint NOT NULL,
+  `permission_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -203,12 +203,12 @@ CREATE TABLE `dasapp_customuser_user_permissions` (
 --
 
 CREATE TABLE `dasapp_doctorreg` (
-  `id` bigint(20) NOT NULL,
-  `mobilenumber` varchar(11) NOT NULL,
+  `id` bigint NOT NULL,
+  `mobilenumber` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
   `regdate_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `admin_id` bigint(20) DEFAULT NULL,
-  `specialization_id_id` bigint(20) NOT NULL
+  `admin_id` bigint DEFAULT NULL,
+  `specialization_id_id` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -233,12 +233,12 @@ INSERT INTO `dasapp_doctorreg` (`id`, `mobilenumber`, `regdate_at`, `updated_at`
 --
 
 CREATE TABLE `dasapp_page` (
-  `id` bigint(20) NOT NULL,
-  `pagetitle` varchar(250) NOT NULL,
-  `address` varchar(250) NOT NULL,
-  `aboutus` longtext NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `mobilenumber` int(11) NOT NULL,
+  `id` bigint NOT NULL,
+  `pagetitle` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `aboutus` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `mobilenumber` int NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -257,8 +257,8 @@ INSERT INTO `dasapp_page` (`id`, `pagetitle`, `address`, `aboutus`, `email`, `mo
 --
 
 CREATE TABLE `dasapp_specialization` (
-  `id` bigint(20) NOT NULL,
-  `sname` varchar(200) NOT NULL,
+  `id` bigint NOT NULL,
+  `sname` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -289,15 +289,15 @@ INSERT INTO `dasapp_specialization` (`id`, `sname`, `created_at`, `updated_at`) 
 --
 
 CREATE TABLE `django_admin_log` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `action_time` datetime(6) NOT NULL,
-  `object_id` longtext DEFAULT NULL,
-  `object_repr` varchar(200) NOT NULL,
-  `action_flag` smallint(5) UNSIGNED NOT NULL CHECK (`action_flag` >= 0),
-  `change_message` longtext NOT NULL,
-  `content_type_id` int(11) DEFAULT NULL,
-  `user_id` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `object_id` longtext COLLATE utf8mb4_general_ci,
+  `object_repr` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `action_flag` smallint UNSIGNED NOT NULL,
+  `change_message` longtext COLLATE utf8mb4_general_ci NOT NULL,
+  `content_type_id` int DEFAULT NULL,
+  `user_id` bigint NOT NULL
+) ;
 
 --
 -- Đang đổ dữ liệu cho bảng `django_admin_log`
@@ -319,9 +319,9 @@ INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`,
 --
 
 CREATE TABLE `django_content_type` (
-  `id` int(11) NOT NULL,
-  `app_label` varchar(100) NOT NULL,
-  `model` varchar(100) NOT NULL
+  `id` int NOT NULL,
+  `app_label` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `model` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -347,9 +347,9 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 --
 
 CREATE TABLE `django_migrations` (
-  `id` bigint(20) NOT NULL,
-  `app` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `id` bigint NOT NULL,
+  `app` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `applied` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -401,8 +401,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 --
 
 CREATE TABLE `django_session` (
-  `session_key` varchar(40) NOT NULL,
-  `session_data` longtext NOT NULL,
+  `session_key` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `session_data` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -527,126 +527,126 @@ ALTER TABLE `django_session`
 -- AUTO_INCREMENT cho bảng `auth_group`
 --
 ALTER TABLE `auth_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `auth_group_permissions`
 --
 ALTER TABLE `auth_group_permissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_appointment`
 --
 ALTER TABLE `dasapp_appointment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_customuser`
 --
 ALTER TABLE `dasapp_customuser`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_customuser_groups`
 --
 ALTER TABLE `dasapp_customuser_groups`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_customuser_user_permissions`
 --
 ALTER TABLE `dasapp_customuser_user_permissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_doctorreg`
 --
 ALTER TABLE `dasapp_doctorreg`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_page`
 --
 ALTER TABLE `dasapp_page`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `dasapp_specialization`
 --
 ALTER TABLE `dasapp_specialization`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Ràng buộc đối với các bảng kết xuất
 --
 
 --
--- Các ràng buộc cho bảng `auth_group_permissions`
+-- Ràng buộc cho bảng `auth_group_permissions`
 --
 ALTER TABLE `auth_group_permissions`
   ADD CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
 
 --
--- Các ràng buộc cho bảng `auth_permission`
+-- Ràng buộc cho bảng `auth_permission`
 --
 ALTER TABLE `auth_permission`
   ADD CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
 
 --
--- Các ràng buộc cho bảng `dasapp_appointment`
+-- Ràng buộc cho bảng `dasapp_appointment`
 --
 ALTER TABLE `dasapp_appointment`
   ADD CONSTRAINT `dasapp_appointment_doctor_id_id_045c6f58_fk_dasapp_doctorreg_id` FOREIGN KEY (`doctor_id_id`) REFERENCES `dasapp_doctorreg` (`id`);
 
 --
--- Các ràng buộc cho bảng `dasapp_customuser_groups`
+-- Ràng buộc cho bảng `dasapp_customuser_groups`
 --
 ALTER TABLE `dasapp_customuser_groups`
   ADD CONSTRAINT `dasapp_customuser_gr_customuser_id_e4c9b5ff_fk_dasapp_cu` FOREIGN KEY (`customuser_id`) REFERENCES `dasapp_customuser` (`id`),
   ADD CONSTRAINT `dasapp_customuser_groups_group_id_cecd6c59_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
 
 --
--- Các ràng buộc cho bảng `dasapp_customuser_user_permissions`
+-- Ràng buộc cho bảng `dasapp_customuser_user_permissions`
 --
 ALTER TABLE `dasapp_customuser_user_permissions`
   ADD CONSTRAINT `dasapp_customuser_us_customuser_id_5a276bdd_fk_dasapp_cu` FOREIGN KEY (`customuser_id`) REFERENCES `dasapp_customuser` (`id`),
   ADD CONSTRAINT `dasapp_customuser_us_permission_id_28ebaabc_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`);
 
 --
--- Các ràng buộc cho bảng `dasapp_doctorreg`
+-- Ràng buộc cho bảng `dasapp_doctorreg`
 --
 ALTER TABLE `dasapp_doctorreg`
   ADD CONSTRAINT `dasapp_doctorreg_admin_id_a8e63d8d_fk_dasapp_customuser_id` FOREIGN KEY (`admin_id`) REFERENCES `dasapp_customuser` (`id`),
   ADD CONSTRAINT `dasapp_doctorreg_specialization_id_id_053c14bd_fk_dasapp_sp` FOREIGN KEY (`specialization_id_id`) REFERENCES `dasapp_specialization` (`id`);
 
 --
--- Các ràng buộc cho bảng `django_admin_log`
+-- Ràng buộc cho bảng `django_admin_log`
 --
 ALTER TABLE `django_admin_log`
   ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),

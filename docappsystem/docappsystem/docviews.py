@@ -1,4 +1,5 @@
 # Import các hàm render giao diện, chuyển hướng và trả về HTTP response
+from multiprocessing import context
 from django.shortcuts import render,redirect,HttpResponse
 
 # Decorator yêu cầu người dùng phải đăng nhập mới được truy cập view
@@ -230,7 +231,7 @@ def Patient_Appointment_Details_Remark(request):
 
         return redirect('view_appointment')
 
-    return render(request,'doc/view_appointment.html',context)
+    return render(request,'doc/view_appointment.html', context)
 
 # Xem danh sách lịch hẹn đã duyệt
 def Patient_Approved_Appointment(request):
@@ -391,7 +392,7 @@ def Between_Date_Report(request):
 
         except ValueError:
 
-            return render(request, 'doc/between-dates-report.html', {'visitor': visitor, 'error_message': 'Invalid date format'})
+            return render(request, 'doc/between-dates-report.html', {'error_message': 'Invalid date format'})
 
         # Filter lịch hẹn trong khoảng ngày
         patient = Appointment.objects.filter(created_at__range=(start_date, end_date)) & Appointment.objects.filter(doctor_id=doctor_reg)
