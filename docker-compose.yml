@@ -2,17 +2,18 @@ version: '3.8'
 
 services:
   web:
+    # THÊM LẠI LỆNH BUILD để Docker tự đóng gói image từ thư mục chứa mã nguồn
     build: ./docappsystem
+    # Đặt tên image nội bộ để dễ quản lý
+    image: doctor-appointment-local:latest
     container_name: django_web
     restart: always
-    # Sử dụng Gunicorn để xử lý đa luồng thay vì server development mặc định
     command: gunicorn docappsystem.wsgi:application --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      # Chuyển DEBUG về 0 để đảm bảo an toàn cho môi trường Production
       - DEBUG=0
 
   db:
@@ -23,9 +24,8 @@ services:
       MYSQL_DATABASE: docaspythondb
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     volumes:
-      # Mount data để dữ liệu bền vững qua các lần CI/CD deploy
       - db_data:/var/lib/mysql
-      # Auto-import cấu trúc database ngay lần đầu khởi chạy
+      # Ánh xạ file SQL từ thư mục cục bộ vào container
       - ./SQLFile/docaspythondb.sql:/docker-entrypoint-initdb.d/init.sql
 
   phpmyadmin:
@@ -36,7 +36,6 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     ports:
-      # Expose port 8081 để tránh xung đột với Jenkins (port 8080) trên EC2
       - "8081:80"
     depends_on:
       - db
