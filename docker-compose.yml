@@ -5,15 +5,15 @@ services:
     build: ./docappsystem
     container_name: django_web
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./docappsystem:/app
+    # Sử dụng Gunicorn để xử lý đa luồng thay vì server development mặc định
+    command: gunicorn docappsystem.wsgi:application --bind 0.0.0.0:8000
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
-      - DEBUG=1
+      # Chuyển DEBUG về 0 để đảm bảo an toàn cho môi trường Production
+      - DEBUG=0
 
   db:
     image: mysql:8.0
@@ -23,10 +23,10 @@ services:
       MYSQL_DATABASE: docaspythondb
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     volumes:
+      # Mount data để dữ liệu bền vững qua các lần CI/CD deploy
       - db_data:/var/lib/mysql
+      # Auto-import cấu trúc database ngay lần đầu khởi chạy
       - ./SQLFile/docaspythondb.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "3306:3306"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -36,7 +36,8 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     ports:
-      - "8080:80"
+      # Expose port 8081 để tránh xung đột với Jenkins (port 8080) trên EC2
+      - "8081:80"
     depends_on:
       - db
 
