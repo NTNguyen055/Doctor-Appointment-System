@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 # Danh sách middleware xử lý request/response
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',         # Middleware bảo mật
+    'whitenoise.middleware.WhiteNoiseMiddleware',            # Middleware xử lý folder static 
     'django.contrib.sessions.middleware.SessionMiddleware',  # Middleware quản lý session
     'django.middleware.common.CommonMiddleware',             # Middleware xử lý chung
     'django.middleware.csrf.CsrfViewMiddleware',             # Middleware chống tấn công CSRF
@@ -120,6 +121,7 @@ USE_TZ = False
 STATIC_URL = 'static/'
 
 # Thư mục chứa file tĩnh trong project
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 # Cấu hình file media (ảnh upload, file người dùng upload)

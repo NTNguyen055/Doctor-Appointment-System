@@ -2,19 +2,28 @@ version: '3.8'
 
 services:
   web:
-    # THÊM LẠI LỆNH BUILD để Docker tự đóng gói image từ thư mục chứa mã nguồn
-    build: ./docappsystem
-    # Đặt tên image nội bộ để dễ quản lý
-    image: doctor-appointment-local:latest
+    # THAY THẾ bằng username Docker Hub của bạn
+    image: ntnguyen055/doctor-appointment:latest
     container_name: django_web
     restart: always
     command: gunicorn docappsystem.wsgi:application --bind 0.0.0.0:8000
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     depends_on:
       - db
     environment:
       - DEBUG=0
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
 
   db:
     image: mysql:8.0
@@ -25,7 +34,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'Banhmi4o@'
     volumes:
       - db_data:/var/lib/mysql
-      # Ánh xạ file SQL từ thư mục cục bộ vào container
       - ./SQLFile/docaspythondb.sql:/docker-entrypoint-initdb.d/init.sql
 
   phpmyadmin:

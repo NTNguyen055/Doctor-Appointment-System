@@ -12,7 +12,14 @@ while ! nc -z db 3306; do
   sleep 1
 done
 
-echo "MySQL started! Starting Django Server..."
+echo "MySQL started! Applying Database Migrations..."
 
-# Chạy lệnh thực sự (python manage.py runserver...)
+# --- 2 LỆNH TỰ ĐỘNG ĐỒNG BỘ CẤU TRÚC DATABASE ---
+python manage.py makemigrations
+python manage.py migrate
+# ------------------------------------------------
+
+echo "Migrations completed! Starting Django Server..."
+
+# Chạy lệnh thực sự (gunicorn...)
 exec "$@"
