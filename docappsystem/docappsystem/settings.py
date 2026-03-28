@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',       # Hệ thống thông báo
     'django.contrib.staticfiles',    # Quản lý file tĩnh (CSS, JS, Images)
     'dasapp',                       # App chính của hệ thống
-    'storages'                      # Đã sửa đổi: Bổ sung chữ 's' để nạp đúng thư viện AWS S3
+    'storages'                      # Thư viện AWS S3
 ]
 
 # Danh sách middleware xử lý request/response

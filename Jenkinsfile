@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'ntnguyen055/doctor-appointment'
-        APP_SERVER_IP = '18.183.172.77'
+        APP_SERVER_IP = '52.68.87.228'
         APP_SERVER_USER = 'ubuntu'
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
     }
