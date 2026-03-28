@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo 'Đẩy tệp cấu hình và Nginx sang App Server...'
                 sshagent(credentials: ['app-server-ssh-key']) {
-                    # Đã loại bỏ thư mục SQLFile, chỉ giữ lại nginx
+                    // Đã loại bỏ thư mục SQLFile, chỉ giữ lại khối lệnh tạo thư mục nginx
                     sh "ssh -o StrictHostKeyChecking=no ${APP_SERVER_USER}@${APP_SERVER_IP} 'mkdir -p ~/doctor-appointment/nginx'"
                     sh "scp -o StrictHostKeyChecking=no docker-compose.yml ${APP_SERVER_USER}@${APP_SERVER_IP}:~/doctor-appointment/"
                     sh "scp -o StrictHostKeyChecking=no nginx/default.conf ${APP_SERVER_USER}@${APP_SERVER_IP}:~/doctor-appointment/nginx/"
