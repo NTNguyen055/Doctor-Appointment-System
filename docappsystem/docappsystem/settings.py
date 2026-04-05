@@ -65,18 +65,36 @@ TEMPLATES = [
 # Cấu hình WSGI để deploy ứng dụng
 WSGI_APPLICATION = 'docappsystem.wsgi.application'
 
-# Cấu hình cơ sở dữ liệu
-# Sử dụng kết nối luân chuyển lấy từ két sắt .env để kết nối tới AWS RDS
+# ==============================================================================
+# CẤU HÌNH CƠ SỞ DỮ LIỆU PHÂN TÁN (PRIMARY - READ REPLICA)
+# ==============================================================================
 DATABASES = {
+    # 1. NODE CHÍNH (PRIMARY) - Chuyên xử lý GHI dữ liệu (INSERT, UPDATE, DELETE)
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('RDS_DB_NAME', 'docaspythondb'),
         'USER': os.environ.get('RDS_USERNAME', 'admin'),
         'PASSWORD': os.environ.get('RDS_PASSWORD', 'Banhmi4o'),
-        'HOST': os.environ.get('RDS_ENDPOINT'),  # Trỏ về AWS RDS Endpoint
+        # Hút Endpoint của máy Primary từ két sắt .env
+        'HOST': os.environ.get('RDS_ENDPOINT'),  
+        'PORT': os.environ.get('RDS_PORT', '3306'),
+    },
+    
+    # 2. NODE PHỤ (READ REPLICA) - Chuyên xử lý ĐỌC dữ liệu (SELECT)
+    'replica': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('RDS_DB_NAME', 'docaspythondb'),
+        'USER': os.environ.get('RDS_USERNAME', 'admin'),
+        'PASSWORD': os.environ.get('RDS_PASSWORD', 'Banhmi4o'),
+        # Sinh ra một biến môi trường mới chuyên chứa link của máy Replica
+        'HOST': os.environ.get('RDS_REPLICA_ENDPOINT'), 
         'PORT': os.environ.get('RDS_PORT', '3306'),
     }
 }
+
+# THUẬT TOÁN ĐIỀU PHỐI (Kích hoạt bộ định tuyến)
+# Cú pháp: 'tên_thư_mục_app.tên_file_python.Tên_Class'
+DATABASE_ROUTERS = ['dasapp.db_router.PrimaryReplicaRouter']
 
 # Cấu hình kiểm tra độ mạnh của mật khẩu
 AUTH_PASSWORD_VALIDATORS = [

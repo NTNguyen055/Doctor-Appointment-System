@@ -5,8 +5,8 @@ pipeline {
         IMAGE_NAME = 'ntnguyen055/doctor-appointment'
         
         // Cấu hình mạng phân tán: Khai báo IP của toàn bộ cụm máy chủ
-        APP_SERVER_IP_1 = '47.128.222.207'
-        APP_SERVER_IP_2 = '52.221.228.87'
+        APP_SERVER_IP_1 = '47.128.150.251'
+        APP_SERVER_IP_2 = '52.221.212.27'
         
         APP_SERVER_USER = 'ubuntu'
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
