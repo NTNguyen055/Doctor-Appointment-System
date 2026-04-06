@@ -13,6 +13,17 @@ DEBUG = True
 # Cho phép tất cả các host truy cập (cần thiết khi chạy trong Docker hoặc môi trường test)
 ALLOWED_HOSTS = ['*']
 
+# CloudFront sẽ gắn nhãn 'https' vào Header này, Django đọc nó để biết kết nối an toàn.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.cloudfront.net',
+]
+
+# Đảm bảo các đường link ảnh/static sinh ra đúng chuẩn HTTPS
+USE_X_FORWARDED_HOST = True
+SECURE_SSL_REDIRECT = False # Để False vì CloudFront đã xử lý việc redirect rồi
+
 # Định nghĩa các ứng dụng được cài đặt trong project
 INSTALLED_APPS = [
     'django.contrib.admin',          # Trang quản trị Django
